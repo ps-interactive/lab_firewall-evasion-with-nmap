@@ -1,11 +1,8 @@
 #!/bin/bash
 
-# setup-kali.sh - This will set up the mock environment
 
-# Create a directory for mock outputs
 mkdir -p /home/kali/mock_outputs
 
-# Create mock output files for each command
 cat > /home/kali/mock_outputs/sT.txt << 'EOF'
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-05-18 08:14 UTC
 Nmap scan report for 10.0.0.10
@@ -43,7 +40,6 @@ PORT     STATE         SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 5.64 seconds
 EOF
 
-# Update the NULL scan (-sN) to show a unique set of filtered ports
 cat > /home/kali/mock_outputs/sN.txt << 'EOF'
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-05-18 08:15 UTC
 Nmap scan report for 10.0.0.10
@@ -58,7 +54,7 @@ PORT     STATE         SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 5.64 seconds
 EOF
 
-# Update the FIN scan (-sF) to show a different set of filtered ports
+
 cat > /home/kali/mock_outputs/sF.txt << 'EOF'
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-05-18 08:15 UTC
 Nmap scan report for 10.0.0.10
@@ -73,7 +69,6 @@ PORT     STATE         SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 5.53 seconds
 EOF
 
-# Update the Xmas scan (-sX) to show yet another set of filtered ports
 cat > /home/kali/mock_outputs/sX.txt << 'EOF'
 Starting Nmap 7.95 ( https://nmap.org ) at 2025-05-18 08:15 UTC
 Nmap scan report for 10.0.0.10
@@ -271,7 +266,6 @@ listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 0 packets dropped by kernel
 EOF
 
-# Create a simple interactive script that will handle all commands
 cat > /home/kali/command_handler.py << 'EOF'
 #!/usr/bin/env python3
 import os
@@ -317,7 +311,7 @@ COMMAND_MAPPINGS = {
     "sudo tcpdump -i eth0 host 10.0.0.10": "tcpdump.txt",
 }
 
-# Simplify input command (remove extra spaces)
+# Simplify input command 
 def simplify_command(cmd):
     return " ".join(cmd.split())
 
@@ -398,7 +392,7 @@ EOF
 
 chmod +x /home/kali/command_handler.py
 
-# Create a custom .bashrc that will run our command handler
+
 cat > /home/kali/custom_bashrc << 'EOF'
 # This is a custom .bashrc file that launches our lab environment
 /home/kali/command_handler.py
